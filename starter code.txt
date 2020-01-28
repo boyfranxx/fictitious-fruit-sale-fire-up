@@ -1,0 +1,9 @@
+import pyodbc
+
+conn = pyodbc.connect\
+    (r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=N:\Fruit Sale Project\yyyyAnthisFruit.accdb;')
+cursor = conn.cursor()
+cursor.execute('select * from FruitSale')
+
+for row in cursor.fetchall():
+    print(row)
