@@ -4,6 +4,9 @@ conn = pyodbc.connect\
     (r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=N:\Fruit Sale Project\2018AnthisFruit.accdb;')
 cursor = conn.cursor()
 cursor.execute('select * from FruitSale')
+rows = []
+for row in cursor.fetchall():
+    rows.append(row)
 
 
 def column_names_indexes(table):
@@ -39,9 +42,12 @@ def find_sum_list(item_type):
 
     # Add each value in column to a list.
     sum_list = []
-    for row in cursor.fetchall():
-        row_total = row[sum_index]
-        sum_list.append(row_total)
+    for row in rows:
+        for info in row:
+            if row[sum_index] is not None:
+                row_total = row[sum_index]
+                sum_list.append(int(row_total))
 
     # Return list.
     return sum_list
+
